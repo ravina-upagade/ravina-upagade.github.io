@@ -187,6 +187,7 @@ nav {
 .proj-visual { width: 100%; aspect-ratio: 16/9; overflow: hidden; }
 .proj-card.expanded .proj-visual { aspect-ratio: 21/8; }
 .proj-visual svg { width: 100%; height: 100%; display: block; }
+.proj-visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .proj-body { padding: 24px 28px 28px; }
 .proj-eyebrow {
   font-size: 12px; font-weight: 600; color: var(--blue);
@@ -483,29 +484,7 @@ footer { background: var(--bg-alt); border-top: 1px solid var(--border); padding
       <!-- HR Analytics — wide -->
       <div class="proj-card proj-card--wide r" onclick="toggleCard(this)">
         <div class="proj-visual">
-          <svg viewBox="0 0 1200 420" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-            <rect width="1200" height="420" fill="#001d35"/>
-            <rect x="60"  y="40" width="210" height="90" rx="12" fill="rgba(41,151,255,.12)"/>
-            <text x="165" y="90"  text-anchor="middle" fill="#60a5fa" font-size="34" font-family="-apple-system,sans-serif" font-weight="700">1,470</text>
-            <text x="165" y="115" text-anchor="middle" fill="rgba(255,255,255,.45)" font-size="13" font-family="-apple-system,sans-serif">Total Employees</text>
-            <rect x="300" y="40" width="210" height="90" rx="12" fill="rgba(248,113,113,.1)"/>
-            <text x="405" y="90"  text-anchor="middle" fill="#f87171" font-size="34" font-family="-apple-system,sans-serif" font-weight="700">16.1%</text>
-            <text x="405" y="115" text-anchor="middle" fill="rgba(255,255,255,.45)" font-size="13" font-family="-apple-system,sans-serif">Attrition Rate</text>
-            <rect x="540" y="40" width="210" height="90" rx="12" fill="rgba(52,211,153,.1)"/>
-            <text x="645" y="90"  text-anchor="middle" fill="#34d399" font-size="34" font-family="-apple-system,sans-serif" font-weight="700">237</text>
-            <text x="645" y="115" text-anchor="middle" fill="rgba(255,255,255,.45)" font-size="13" font-family="-apple-system,sans-serif">Employees Left</text>
-            <rect x="780" y="40" width="210" height="90" rx="12" fill="rgba(251,191,36,.1)"/>
-            <text x="885" y="90"  text-anchor="middle" fill="#fbbf24" font-size="34" font-family="-apple-system,sans-serif" font-weight="700">36.9</text>
-            <text x="885" y="115" text-anchor="middle" fill="rgba(255,255,255,.45)" font-size="13" font-family="-apple-system,sans-serif">Avg Age</text>
-            <rect x="60"  y="355" width="55" height="55"  fill="rgba(96,165,250,.5)" rx="4"/>
-            <rect x="130" y="300" width="55" height="110" fill="rgba(96,165,250,.7)" rx="4"/>
-            <rect x="200" y="270" width="55" height="140" fill="#60a5fa" rx="4"/>
-            <rect x="270" y="315" width="55" height="95"  fill="rgba(96,165,250,.65)" rx="4"/>
-            <rect x="340" y="260" width="55" height="150" fill="#60a5fa" rx="4"/>
-            <rect x="410" y="295" width="55" height="115" fill="rgba(96,165,250,.6)" rx="4"/>
-            <polyline points="600,360 670,320 740,335 810,285 880,260 950,275 1020,230 1090,210 1150,190" fill="none" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <polyline points="600,360 670,320 740,335 810,285 880,260 950,275 1020,230 1090,210 1150,190 1150,420 600,420" fill="rgba(96,165,250,.07)"/>
-          </svg>
+          <img src="https://raw.githubusercontent.com/ravina-upagade/PowerBI-Analytics-Portfolio/main/HR-People-Analytics/02-Headcount.JPG" alt="HR People Analytics Dashboard" loading="lazy">
         </div>
         <div class="proj-body">
           <p class="proj-eyebrow">Power BI · HR Analytics</p>
@@ -538,18 +517,7 @@ footer { background: var(--bg-alt); border-top: 1px solid var(--border); padding
       <!-- Coffee -->
       <div class="proj-card r" onclick="toggleCard(this)">
         <div class="proj-visual">
-          <svg viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-            <rect width="600" height="340" fill="#001a0f"/>
-            <polyline points="30,280 90,248 160,258 230,210 300,224 380,180 460,192 540,155 590,138" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <polyline points="30,280 90,248 160,258 230,210 300,224 380,180 460,192 540,155 590,138 590,340 30,340" fill="rgba(52,211,153,.06)"/>
-            <circle cx="300" cy="224" r="5" fill="#34d399"/><circle cx="460" cy="192" r="5" fill="#34d399"/>
-            <rect x="30" y="30" width="130" height="70" rx="10" fill="rgba(52,211,153,.12)"/>
-            <text x="95" y="68" text-anchor="middle" fill="#34d399" font-size="26" font-family="-apple-system,sans-serif" font-weight="700">$698K</text>
-            <text x="95" y="88" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="12" font-family="-apple-system,sans-serif">Revenue</text>
-            <rect x="178" y="30" width="110" height="70" rx="10" fill="rgba(52,211,153,.12)"/>
-            <text x="233" y="68" text-anchor="middle" fill="#34d399" font-size="26" font-family="-apple-system,sans-serif" font-weight="700">149K</text>
-            <text x="233" y="88" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="12" font-family="-apple-system,sans-serif">Orders</text>
-          </svg>
+          <img src="https://raw.githubusercontent.com/ravina-upagade/PowerBI-Analytics-Portfolio/main/Kraken_Coffee_Sales/Kraken%20Koffee%20Sales.JPG" alt="Kraken Coffee Sales Dashboard" loading="lazy">
         </div>
         <div class="proj-body">
           <p class="proj-eyebrow">Excel · Power Query · Sales</p>
@@ -578,17 +546,7 @@ footer { background: var(--bg-alt); border-top: 1px solid var(--border); padding
       <!-- MarketMindz -->
       <div class="proj-card r d1" onclick="toggleCard(this)">
         <div class="proj-visual">
-          <svg viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-            <rect width="600" height="340" fill="#130820"/>
-            <path d="M120 30 L480 30 L450 82 L150 82 Z" fill="rgba(167,139,250,.6)"/>
-            <path d="M150 92 L450 92 L425 140 L175 140 Z" fill="rgba(167,139,250,.45)"/>
-            <path d="M175 150 L425 150 L403 194 L197 194 Z" fill="rgba(167,139,250,.3)"/>
-            <path d="M197 204 L403 204 L384 244 L216 244 Z" fill="rgba(167,139,250,.18)"/>
-            <text x="300" y="60"  text-anchor="middle" fill="rgba(255,255,255,.9)" font-size="12" font-family="-apple-system,sans-serif">Awareness — 100%</text>
-            <text x="300" y="120" text-anchor="middle" fill="rgba(255,255,255,.9)" font-size="12" font-family="-apple-system,sans-serif">Interest — 68%</text>
-            <text x="300" y="175" text-anchor="middle" fill="rgba(255,255,255,.85)" font-size="11" font-family="-apple-system,sans-serif">Consideration — 42%</text>
-            <text x="300" y="228" text-anchor="middle" fill="rgba(255,255,255,.8)" font-size="11" font-family="-apple-system,sans-serif">Purchase — 22%</text>
-          </svg>
+          <img src="https://raw.githubusercontent.com/ravina-upagade/PowerBI-Analytics-Portfolio/main/Marketmindz_Research/MarketMindz_Research.JPG" alt="MarketMindz Research Dashboard" loading="lazy">
         </div>
         <div class="proj-body">
           <p class="proj-eyebrow">Power BI · Market Research</p>
@@ -617,25 +575,7 @@ footer { background: var(--bg-alt); border-top: 1px solid var(--border); padding
       <!-- Maven Market -->
       <div class="proj-card r" onclick="toggleCard(this)">
         <div class="proj-visual">
-          <svg viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-            <rect width="600" height="340" fill="#001508"/>
-            <rect x="30"  y="30" width="145" height="80" rx="10" fill="rgba(52,211,153,.12)"/>
-            <text x="102" y="72" text-anchor="middle" fill="#34d399" font-size="26" font-family="-apple-system,sans-serif" font-weight="700">$1.76M</text>
-            <text x="102" y="96" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="12" font-family="-apple-system,sans-serif">Revenue</text>
-            <rect x="190" y="30" width="120" height="80" rx="10" fill="rgba(52,211,153,.12)"/>
-            <text x="250" y="72" text-anchor="middle" fill="#34d399" font-size="26" font-family="-apple-system,sans-serif" font-weight="700">59%</text>
-            <text x="250" y="96" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="12" font-family="-apple-system,sans-serif">Margin</text>
-            <rect x="325" y="30" width="120" height="80" rx="10" fill="rgba(52,211,153,.12)"/>
-            <text x="385" y="72" text-anchor="middle" fill="#34d399" font-size="26" font-family="-apple-system,sans-serif" font-weight="700">1,560</text>
-            <text x="385" y="96" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="12" font-family="-apple-system,sans-serif">Customers</text>
-            <rect x="30"  y="268" width="50" height="52" rx="4" fill="rgba(52,211,153,.65)"/>
-            <rect x="92"  y="240" width="50" height="80" rx="4" fill="rgba(52,211,153,.8)"/>
-            <rect x="154" y="215" width="50" height="105" rx="4" fill="#34d399"/>
-            <rect x="216" y="248" width="50" height="72" rx="4" fill="rgba(52,211,153,.7)"/>
-            <rect x="278" y="202" width="50" height="118" rx="4" fill="#34d399"/>
-            <rect x="340" y="228" width="50" height="92" rx="4" fill="rgba(52,211,153,.75)"/>
-            <rect x="402" y="195" width="50" height="125" rx="4" fill="#34d399"/>
-          </svg>
+          <img src="https://raw.githubusercontent.com/ravina-upagade/PowerBI-Analytics-Portfolio/main/Maven_Market/Maven%20Market.JPG" alt="Maven Market Dashboard" loading="lazy">
         </div>
         <div class="proj-body">
           <p class="proj-eyebrow">Power BI · Retail Analytics</p>
@@ -664,25 +604,7 @@ footer { background: var(--bg-alt); border-top: 1px solid var(--border); padding
       <!-- TCS Stock -->
       <div class="proj-card r d1" onclick="toggleCard(this)">
         <div class="proj-visual">
-          <svg viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-            <rect width="600" height="340" fill="#0a1520"/>
-            <line x1="60"  y1="80"  x2="60"  y2="220" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
-            <rect x="44"  y="130" width="32" height="90"  fill="rgba(248,113,113,.75)" rx="3"/>
-            <line x1="115" y1="60"  x2="115" y2="215" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
-            <rect x="99"  y="90"  width="32" height="90"  fill="rgba(52,211,153,.8)" rx="3"/>
-            <line x1="170" y1="45"  x2="170" y2="205" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
-            <rect x="154" y="72"  width="32" height="85"  fill="rgba(52,211,153,.8)" rx="3"/>
-            <line x1="225" y1="65"  x2="225" y2="215" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
-            <rect x="209" y="105" width="32" height="60"  fill="rgba(248,113,113,.7)" rx="3"/>
-            <line x1="280" y1="38"  x2="280" y2="198" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
-            <rect x="264" y="60"  width="32" height="76"  fill="rgba(52,211,153,.8)" rx="3"/>
-            <line x1="335" y1="30"  x2="335" y2="185" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
-            <rect x="319" y="52"  width="32" height="68"  fill="rgba(52,211,153,.8)" rx="3"/>
-            <line x1="390" y1="48"  x2="390" y2="200" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
-            <rect x="374" y="82"  width="32" height="70"  fill="rgba(248,113,113,.7)" rx="3"/>
-            <polyline points="450,280 490,255 530,262 560,235 590,215" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round"/>
-            <polyline points="450,280 490,255 530,262 560,235 590,215 590,340 450,340" fill="rgba(96,165,250,.06)"/>
-          </svg>
+          <img src="https://raw.githubusercontent.com/ravina-upagade/PowerBI-Analytics-Portfolio/main/TCS_Stock_Price_Analysis/TCS%20Stock%20Analysis.JPG" alt="TCS Stock Price Analysis" loading="lazy">
         </div>
         <div class="proj-body">
           <p class="proj-eyebrow">Python · Pandas · Finance</p>
@@ -711,36 +633,7 @@ footer { background: var(--bg-alt); border-top: 1px solid var(--border); padding
       <!-- Securities Hub — wide -->
       <div class="proj-card proj-card--wide r" onclick="toggleCard(this)">
         <div class="proj-visual">
-          <svg viewBox="0 0 1200 420" xmlns="https://github.com/ravina-upagade/PowerBI-Analytics-Portfolio/blob/main/Securities_Operations_Analytics_Hub/Securities%20Operations%20Analytics%20Hub.JPG" preserveAspectRatio="xMidYMid slice">
-            <rect width="1200" height="420" fill="#00101f"/>
-            <rect x="50"  y="40" width="200" height="90" rx="12" fill="rgba(41,151,255,.12)"/>
-            <text x="150" y="90"  text-anchor="middle" fill="#60a5fa" font-size="30" font-family="-apple-system,sans-serif" font-weight="700">12</text>
-            <text x="150" y="115" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="13" font-family="-apple-system,sans-serif">Dashboards</text>
-            <rect x="275" y="40" width="200" height="90" rx="12" fill="rgba(41,151,255,.12)"/>
-            <text x="375" y="90"  text-anchor="middle" fill="#60a5fa" font-size="30" font-family="-apple-system,sans-serif" font-weight="700">200+</text>
-            <text x="375" y="115" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="13" font-family="-apple-system,sans-serif">Active Users</text>
-            <rect x="500" y="40" width="200" height="90" rx="12" fill="rgba(52,211,153,.1)"/>
-            <text x="600" y="90"  text-anchor="middle" fill="#34d399" font-size="30" font-family="-apple-system,sans-serif" font-weight="700">35%</text>
-            <text x="600" y="115" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="13" font-family="-apple-system,sans-serif">Faster Resolution</text>
-            <rect x="725" y="40" width="200" height="90" rx="12" fill="rgba(248,113,113,.1)"/>
-            <text x="825" y="90"  text-anchor="middle" fill="#f87171" font-size="30" font-family="-apple-system,sans-serif" font-weight="700">30%</text>
-            <text x="825" y="115" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="13" font-family="-apple-system,sans-serif">Risk Reduction</text>
-            <rect x="950" y="40" width="200" height="90" rx="12" fill="rgba(251,191,36,.1)"/>
-            <text x="1050" y="90"  text-anchor="middle" fill="#fbbf24" font-size="30" font-family="-apple-system,sans-serif" font-weight="700">99.8%</text>
-            <text x="1050" y="115" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="13" font-family="-apple-system,sans-serif">Data Accuracy</text>
-            <rect x="50"  y="320" width="55" height="80"  fill="rgba(41,151,255,.6)" rx="4"/>
-            <rect x="50"  y="280" width="55" height="40"  fill="rgba(41,151,255,.3)" rx="4"/>
-            <rect x="125" y="295" width="55" height="105" fill="rgba(41,151,255,.6)" rx="4"/>
-            <rect x="125" y="255" width="55" height="40"  fill="rgba(41,151,255,.3)" rx="4"/>
-            <rect x="200" y="305" width="55" height="95"  fill="rgba(41,151,255,.6)" rx="4"/>
-            <rect x="200" y="270" width="55" height="35"  fill="rgba(41,151,255,.3)" rx="4"/>
-            <rect x="275" y="280" width="55" height="120" fill="rgba(41,151,255,.65)" rx="4"/>
-            <rect x="275" y="240" width="55" height="40"  fill="rgba(41,151,255,.35)" rx="4"/>
-            <circle cx="980" cy="300" r="80" fill="none" stroke="rgba(41,151,255,.12)" stroke-width="18"/>
-            <circle cx="980" cy="300" r="80" fill="none" stroke="#60a5fa" stroke-width="18" stroke-dasharray="302 200" stroke-dashoffset="75" stroke-linecap="round"/>
-            <text x="980" y="306" text-anchor="middle" fill="white" font-size="22" font-family="-apple-system,sans-serif" font-weight="700">0 gaps</text>
-            <text x="980" y="330" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="12" font-family="-apple-system,sans-serif">Audit failures</text>
-          </svg>
+          <img src="https://raw.githubusercontent.com/ravina-upagade/PowerBI-Analytics-Portfolio/main/Securities_Operations_Analytics_Hub/Securities%20Operations%20Analytics%20Hub.JPG" alt="Securities Operations Analytics Hub" loading="lazy">
         </div>
         <div class="proj-body">
           <p class="proj-eyebrow">Power BI · Enterprise · Axis Securities</p>
@@ -774,39 +667,7 @@ footer { background: var(--bg-alt); border-top: 1px solid var(--border); padding
       <!-- KYC — wide -->
       <div class="proj-card proj-card--wide r" onclick="toggleCard(this)">
         <div class="proj-visual">
-          <svg viewBox="0 0 1200 340" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-            <rect width="1200" height="340" fill="#1a0e00"/>
-            <rect x="50"  y="30" width="180" height="80" rx="10" fill="rgba(251,191,36,.12)"/>
-            <text x="140" y="72" text-anchor="middle" fill="#fbbf24" font-size="28" font-family="-apple-system,sans-serif" font-weight="700">500+</text>
-            <text x="140" y="95" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="12" font-family="-apple-system,sans-serif">Applications / Month</text>
-            <rect x="250" y="30" width="180" height="80" rx="10" fill="rgba(52,211,153,.1)"/>
-            <text x="340" y="72" text-anchor="middle" fill="#34d399" font-size="28" font-family="-apple-system,sans-serif" font-weight="700">28%</text>
-            <text x="340" y="95" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="12" font-family="-apple-system,sans-serif">Faster Processing</text>
-            <rect x="450" y="30" width="180" height="80" rx="10" fill="rgba(96,165,250,.1)"/>
-            <text x="540" y="72" text-anchor="middle" fill="#60a5fa" font-size="28" font-family="-apple-system,sans-serif" font-weight="700">100%</text>
-            <text x="540" y="95" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="12" font-family="-apple-system,sans-serif">Tracking Accuracy</text>
-            <rect x="650" y="30" width="180" height="80" rx="10" fill="rgba(248,113,113,.1)"/>
-            <text x="740" y="72" text-anchor="middle" fill="#f87171" font-size="28" font-family="-apple-system,sans-serif" font-weight="700">35%</text>
-            <text x="740" y="95" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="12" font-family="-apple-system,sans-serif">Fewer Delays</text>
-            <rect x="50"  y="165" width="145" height="55" rx="10" fill="rgba(251,191,36,.12)" stroke="rgba(251,191,36,.3)" stroke-width="1"/>
-            <text x="122" y="196" text-anchor="middle" fill="#fbbf24" font-size="14" font-family="-apple-system,sans-serif" font-weight="600">Submitted</text>
-            <text x="200" y="196" fill="rgba(255,255,255,.3)" font-size="20">›</text>
-            <rect x="210" y="165" width="145" height="55" rx="10" fill="rgba(251,191,36,.12)" stroke="rgba(251,191,36,.3)" stroke-width="1"/>
-            <text x="282" y="196" text-anchor="middle" fill="#fbbf24" font-size="14" font-family="-apple-system,sans-serif" font-weight="600">In Review</text>
-            <text x="360" y="196" fill="rgba(255,255,255,.3)" font-size="20">›</text>
-            <rect x="370" y="165" width="145" height="55" rx="10" fill="rgba(52,211,153,.12)" stroke="rgba(52,211,153,.3)" stroke-width="1"/>
-            <text x="442" y="196" text-anchor="middle" fill="#34d399" font-size="14" font-family="-apple-system,sans-serif" font-weight="600">Approved</text>
-            <text x="520" y="196" fill="rgba(255,255,255,.3)" font-size="20">›</text>
-            <rect x="530" y="165" width="145" height="55" rx="10" fill="rgba(248,113,113,.12)" stroke="rgba(248,113,113,.3)" stroke-width="1"/>
-            <text x="602" y="196" text-anchor="middle" fill="#f87171" font-size="14" font-family="-apple-system,sans-serif" font-weight="600">Rejected</text>
-            <text x="50" y="270" fill="rgba(251,191,36,.7)" font-size="11" font-family="-apple-system,sans-serif" font-weight="600">SLA COMPLIANCE</text>
-            <rect x="50"  y="282" width="300" height="10" rx="5" fill="rgba(255,255,255,.06)"/>
-            <rect x="50"  y="282" width="220" height="10" rx="5" fill="rgba(52,211,153,.5)"/>
-            <text x="360" y="292" fill="rgba(255,255,255,.35)" font-size="11" font-family="-apple-system,sans-serif">On Track 73%</text>
-            <rect x="50"  y="304" width="300" height="10" rx="5" fill="rgba(255,255,255,.06)"/>
-            <rect x="50"  y="304" width="95"  height="10" rx="5" fill="rgba(251,191,36,.6)"/>
-            <text x="360" y="314" fill="rgba(255,255,255,.35)" font-size="11" font-family="-apple-system,sans-serif">At Risk 31%</text>
-          </svg>
+          <img src="https://raw.githubusercontent.com/ravina-upagade/PowerBI-Analytics-Portfolio/main/Securities_Operations_Analytics_Hub/Securities%20Operations%20Analytics%20Hub.JPG" alt="Client Onboarding & KYC Analytics" loading="lazy">
         </div>
         <div class="proj-body">
           <p class="proj-eyebrow">Power BI · KYC · Compliance · Axis Securities</p>
@@ -929,7 +790,7 @@ footer { background: var(--bg-alt); border-top: 1px solid var(--border); padding
     <h2 class="contact-h r">Let's work together.</h2>
     <p class="contact-sub r">Open to Power BI Developer and Business Intelligence roles.</p>
     <div class="contact-grid r">
-      <a href="mailto:ravina.upagade@gmail.com" class="contact-card"><div class="contact-label">Email</div><div class="contact-val">ravina.upagade@gmail.com</div></a>
+      <a href="/cdn-cgi/l/email-protection#7e0c1f0817101f500b0e1f191f1a1b3e19131f1712501d1113" class="contact-card"><div class="contact-label">Email</div><div class="contact-val"><span class="__cf_email__" data-cfemail="9deffcebf4f3fcb3e8edfcfafcf9f8ddfaf0fcf4f1b3fef2f0">[email&#160;protected]</span></div></a>
       <a href="tel:+919096417260" class="contact-card"><div class="contact-label">Phone</div><div class="contact-val">+91 9096417260</div></a>
       <a href="https://www.linkedin.com/in/ravina-upagade-kulkarni/" target="_blank" class="contact-card"><div class="contact-label">LinkedIn</div><div class="contact-val">Connect ›</div></a>
       <a href="https://github.com/ravina-upagade/PowerBI-Analytics-Portfolio" target="_blank" class="contact-card"><div class="contact-label">GitHub</div><div class="contact-val">Portfolio ›</div></a>
@@ -943,12 +804,12 @@ footer { background: var(--bg-alt); border-top: 1px solid var(--border); padding
     <div class="footer-right">
       <a href="https://www.linkedin.com/in/ravina-upagade-kulkarni/" target="_blank">LinkedIn</a>
       <a href="https://github.com/ravina-upagade" target="_blank">GitHub</a>
-      <a href="mailto:ravina.upagade@gmail.com">Email</a>
+      <a href="/cdn-cgi/l/email-protection#9ae8fbecf3f4fbb4efeafbfdfbfeffdafdf7fbf3f6b4f9f5f7">Email</a>
     </div>
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const btn  = document.getElementById('themeBtn');
 const html = document.documentElement;
 
@@ -971,14 +832,4 @@ document.querySelectorAll('.r').forEach(el => io.observe(el));
 
 function toggleCard(card) {
   if (card.classList.contains('expanded')) return;
-  document.querySelectorAll('.proj-card.expanded').forEach(c => c.classList.remove('expanded'));
-  card.classList.add('expanded');
-  requestAnimationFrame(() => card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }));
-}
-function closeCard(btn, e) {
-  e.stopPropagation();
-  btn.closest('.proj-card').classList.remove('expanded');
-}
-</script>
-</body>
-</html>
+  document.querySelectorAll('.proj-card.expanded').forEach(c => c
