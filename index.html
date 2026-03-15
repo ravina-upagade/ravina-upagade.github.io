@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ravina Upagade — Power BI Developer</title>
+<style>
+
+/* ─── DESIGN TOKENS (Apple exact) ─────────── */
+:root {
+  --bg:        #ffffff;
+  --bg-alt:    #f5f5f7;
+  --text:      #1d1d1f;
+  --secondary: #6e6e73;
+  --blue:      #0071e3;
+  --border:    #d2d2d7;
+  --nav-bg:    rgba(255,255,255,0.8);
+  --card-bg:   #f5f5f7;
+}
+
+[data-theme="dark"] {
+  --bg:        #000000;
+  --bg-alt:    #161617;
+  --text:      #f5f5f7;
+  --secondary: #86868b;
+  --blue:      #2997ff;
+  --border:    #424245;
+  --nav-bg:    rgba(0,0,0,0.8);
+  --card-bg:   #1d1d1f;
+}
+
+/* ─── RESET ────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+               "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1.47059;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s, color 0.3s;
+}
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+button { font-family: inherit; cursor: pointer; }
+hr { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+/* ─── NAV ──────────────────────────────────── */
+nav {
+  position: sticky; top: 0; z-index: 9999;
+  height: 44px;
+  background: var(--nav-bg);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(0,0,0,0.16);
+  transition: background 0.3s;
+}
+[data-theme="dark"] nav { border-bottom-color: rgba(255,255,255,0.12); }
+
+.nav-inner {
+  max-width: 980px; margin: 0 auto; padding: 0 22px;
+  height: 44px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-size: 21px; font-weight: 400; color: var(--text);
+  text-decoration: none; line-height: 1;
+}
+.nav-links { display: flex; list-style: none; }
+.nav-links a {
+  font-size: 12px; font-weight: 400; color: var(--secondary);
+  padding: 0 8px; display: block; line-height: 44px;
+  text-decoration: none; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text); }
+.theme-toggle {
+  background: none; border: none;
+  font-size: 16px; color: var(--secondary);
+  padding: 4px 8px; border-radius: 50%;
+  transition: background 0.2s; line-height: 1;
+}
+.theme-toggle:hover { background: var(--bg-alt); }
+
+/* ─── HERO ─────────────────────────────────── */
+.hero {
+  text-align: center;
+  padding: 80px 22px 60px;
+  max-width: 980px; margin: 0 auto;
+}
+.hero h1 {
+  font-size: 56px; font-weight: 700;
+  letter-spacing: -0.005em; line-height: 1.07143;
+  color: var(--text); margin-bottom: 6px;
+}
+.hero-role {
+  font-size: 28px; font-weight: 400; color: var(--secondary);
+  letter-spacing: 0.007em; line-height: 1.14286; margin-bottom: 24px;
+}
+.hero-desc {
+  font-size: 19px; font-weight: 400; color: var(--secondary);
+  line-height: 1.4211; max-width: 600px;
+  margin: 0 auto 36px;
+}
+.hero-links {
+  display: flex; flex-wrap: wrap;
+  justify-content: center; gap: 8px;
+}
+.hero-link {
+  font-size: 14px; font-weight: 400; color: var(--blue);
+  background: var(--bg-alt); border-radius: 980px;
+  padding: 8px 16px; text-decoration: none;
+  transition: background 0.2s; white-space: nowrap;
+}
+.hero-link:hover { background: var(--border); text-decoration: none; }
+
+/* Stats */
+.stats-row {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 18px;
+  overflow: hidden; margin-top: 48px;
+}
+.stat-item { background: var(--bg); padding: 24px 20px; text-align: center; }
+.stat-num {
+  font-size: 40px; font-weight: 700;
+  letter-spacing: -0.004em; line-height: 1; color: var(--text);
+}
+.stat-cap { font-size: 12px; color: var(--secondary); margin-top: 4px; }
+
+/* ─── SECTION BASE ──────────────────────────── */
+.section { max-width: 980px; margin: 0 auto; padding: 70px 22px; }
+.section-alt { background: var(--bg-alt); }
+.eyebrow {
+  font-size: 12px; font-weight: 600; color: var(--secondary);
+  letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px;
+}
+.section-headline {
+  font-size: 48px; font-weight: 700;
+  letter-spacing: -0.003em; line-height: 1.08349;
+  color: var(--text); margin-bottom: 6px;
+}
+.section-sub {
+  font-size: 21px; font-weight: 400; color: var(--secondary);
+  line-height: 1.381; max-width: 620px;
+}
+
+/* ─── ABOUT ─────────────────────────────────── */
+.about-cols {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 60px; margin-top: 48px; align-items: start;
+}
+.about-body {
+  font-size: 17px; font-weight: 400; color: var(--secondary);
+  line-height: 1.52941;
+}
+.about-body p + p { margin-top: 16px; }
+.about-facts { display: flex; flex-direction: column; gap: 1px; }
+.fact-card {
+  background: var(--card-bg); padding: 22px 24px;
+}
+.fact-card:first-child { border-radius: 12px 12px 0 0; }
+.fact-card:last-child  { border-radius: 0 0 12px 12px; }
+.fact-num {
+  font-size: 36px; font-weight: 700;
+  letter-spacing: -0.003em; line-height: 1; color: var(--text);
+}
+.fact-desc {
+  font-size: 13px; font-weight: 400; color: var(--secondary);
+  margin-top: 4px; line-height: 1.4;
+}
+
+/* ─── PROJECTS ───────────────────────────────── */
+.projects-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 8px; margin-top: 40px;
+}
+.proj-card--wide { grid-column: 1 / -1; }
+.proj-card {
+  background: var(--card-bg); border-radius: 18px;
+  overflow: hidden; cursor: pointer; position: relative;
+  transition: transform 0.3s ease;
+}
+.proj-card:hover { transform: scale(1.005); }
+.proj-card.expanded { transform: none; grid-column: 1 / -1; }
+.proj-visual { width: 100%; aspect-ratio: 16/9; overflow: hidden; }
+.proj-card.expanded .proj-visual { aspect-ratio: 21/8; }
+.proj-visual svg { width: 100%; height: 100%; display: block; }
+.proj-body { padding: 24px 28px 28px; }
+.proj-eyebrow {
+  font-size: 12px; font-weight: 600; color: var(--blue);
+  letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px;
+}
+.proj-title {
+  font-size: 24px; font-weight: 700;
+  letter-spacing: -0.003em; line-height: 1.16667;
+  color: var(--text); margin-bottom: 6px;
+}
+.proj-desc {
+  font-size: 15px; font-weight: 400; color: var(--secondary);
+  line-height: 1.46667; margin-bottom: 12px;
+}
+.proj-more {
+  font-size: 14px; font-weight: 400; color: var(--blue);
+  display: inline-flex; align-items: center;
+}
+.proj-more::after { content: ' ›'; }
+.expanded .proj-more { display: none; }
+
+.proj-expanded {
+  display: none; padding: 0 28px 28px;
+  animation: fade-in 0.25s ease;
+}
+.expanded .proj-expanded { display: block; }
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.proj-details-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 12px;
+  overflow: hidden; margin-bottom: 24px;
+}
+.detail-cell { background: var(--bg); padding: 16px 18px; }
+.detail-label {
+  font-size: 11px; font-weight: 600; color: var(--secondary);
+  text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px;
+}
+.detail-val { font-size: 15px; font-weight: 500; color: var(--text); }
+
+.proj-ul { list-style: none; margin-bottom: 20px; }
+.proj-ul li {
+  font-size: 15px; font-weight: 400; color: var(--secondary);
+  line-height: 1.6; padding: 6px 0 6px 18px;
+  position: relative; border-bottom: 1px solid var(--border);
+}
+.proj-ul li:last-child { border-bottom: none; }
+.proj-ul li::before {
+  content: ''; position: absolute; left: 0; top: 14px;
+  width: 6px; height: 6px; border-radius: 50%; background: var(--blue);
+}
+.proj-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+.proj-chip {
+  font-size: 13px; font-weight: 400; color: var(--text);
+  background: var(--bg-alt); border: 1px solid var(--border);
+  border-radius: 980px; padding: 5px 14px;
+}
+.proj-close {
+  font-size: 14px; font-weight: 400; color: var(--secondary);
+  background: var(--bg-alt); border: 1px solid var(--border);
+  border-radius: 980px; padding: 8px 18px; transition: background 0.2s;
+}
+.proj-close:hover { background: var(--border); }
+
+/* ─── EXPERIENCE ────────────────────────────── */
+.exp-list { margin-top: 48px; }
+.exp-row {
+  display: grid; grid-template-columns: 220px 1fr;
+  gap: 0 48px; padding: 36px 0;
+  border-top: 1px solid var(--border);
+}
+.exp-row:last-child { border-bottom: 1px solid var(--border); }
+.exp-period { font-size: 12px; font-weight: 600; color: var(--secondary); margin-bottom: 4px; }
+.exp-company-name { font-size: 13px; font-weight: 600; color: var(--blue); }
+.exp-location { font-size: 12px; color: var(--secondary); }
+.exp-role-title {
+  font-size: 24px; font-weight: 700;
+  letter-spacing: -0.003em; color: var(--text); margin-bottom: 14px;
+}
+.exp-bullets { list-style: none; }
+.exp-bullets li {
+  font-size: 15px; color: var(--secondary); line-height: 1.6;
+  padding: 6px 0 6px 18px; position: relative;
+  border-bottom: 1px solid var(--border);
+}
+.exp-bullets li:last-child { border-bottom: none; }
+.exp-bullets li::before {
+  content: ''; position: absolute; left: 0; top: 14px;
+  width: 6px; height: 6px; border-radius: 50%; background: var(--blue);
+}
+.exp-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
+.exp-tag {
+  font-size: 12px; color: var(--secondary);
+  border: 1px solid var(--border); border-radius: 980px;
+  padding: 4px 12px; background: var(--bg-alt);
+}
+
+/* ─── SKILLS ────────────────────────────────── */
+.skills-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 8px; margin-top: 48px;
+}
+.skill-card {
+  background: var(--card-bg); border-radius: 18px; padding: 28px 24px;
+}
+.skill-icon { font-size: 32px; margin-bottom: 14px; display: block; }
+.skill-name {
+  font-size: 19px; font-weight: 700;
+  letter-spacing: -0.003em; color: var(--text); margin-bottom: 14px;
+}
+.skill-items { display: flex; flex-wrap: wrap; gap: 5px; }
+.skill-item {
+  font-size: 12px; color: var(--secondary);
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 980px; padding: 4px 10px;
+}
+
+/* ─── EDUCATION ─────────────────────────────── */
+.edu-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 8px; margin-top: 48px;
+}
+.edu-card { background: var(--card-bg); border-radius: 18px; padding: 28px 24px; }
+.edu-year {
+  font-size: 12px; font-weight: 600; color: var(--blue);
+  letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px;
+}
+.edu-degree {
+  font-size: 21px; font-weight: 700; letter-spacing: -0.003em;
+  line-height: 1.19048; color: var(--text); margin-bottom: 6px;
+}
+.edu-school { font-size: 14px; color: var(--secondary); }
+
+/* ─── CONTACT ───────────────────────────────── */
+.contact-section { background: var(--bg-alt); }
+.contact-wrap { max-width: 980px; margin: 0 auto; padding: 70px 22px; text-align: center; }
+.contact-h {
+  font-size: 48px; font-weight: 700;
+  letter-spacing: -0.003em; line-height: 1.08349;
+  color: var(--text); margin-bottom: 8px;
+}
+.contact-sub { font-size: 21px; color: var(--secondary); margin-bottom: 48px; }
+.contact-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 8px; max-width: 780px; margin: 0 auto;
+}
+.contact-card {
+  background: var(--bg); border-radius: 18px; padding: 22px 18px;
+  text-decoration: none; display: block; text-align: left;
+  transition: background 0.2s;
+}
+.contact-card:hover { background: var(--border); text-decoration: none; }
+.contact-label {
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--secondary); margin-bottom: 6px;
+}
+.contact-val { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.4; }
+
+/* ─── FOOTER ────────────────────────────────── */
+footer { background: var(--bg-alt); border-top: 1px solid var(--border); padding: 20px 22px; }
+.footer-inner {
+  max-width: 980px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-left  { font-size: 12px; color: var(--secondary); }
+.footer-right { display: flex; gap: 16px; }
+.footer-right a { font-size: 12px; color: var(--secondary); text-decoration: none; transition: color 0.2s; }
+.footer-right a:hover { color: var(--text); }
+
+/* ─── REVEAL ────────────────────────────────── */
+.r { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.r.v { opacity: 1; transform: none; }
+.r.d1 { transition-delay: 0.08s; }
+.r.d2 { transition-delay: 0.16s; }
+.r.d3 { transition-delay: 0.24s; }
+.r.d4 { transition-delay: 0.32s; }
+
+/* ─── RESPONSIVE ────────────────────────────── */
+@media (max-width: 734px) {
+  .nav-links { display: none; }
+  .hero h1 { font-size: 36px; }
+  .hero-role { font-size: 21px; }
+  .section-headline { font-size: 32px; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .projects-grid { grid-template-columns: 1fr; }
+  .proj-card--wide, .proj-card.expanded { grid-column: 1; }
+  .proj-details-grid { grid-template-columns: 1fr; }
+  .about-cols { grid-template-columns: 1fr; gap: 32px; }
+  .exp-row { grid-template-columns: 1fr; gap: 12px; }
+  .skills-grid { grid-template-columns: 1fr 1fr; }
+  .edu-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr 1fr; }
+  .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+  .contact-h { font-size: 32px; }
+}
+@media (max-width: 480px) {
+  .skills-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">◆</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeBtn">🌙</button>
+  </div>
+</nav>
+
+<div class="hero r">
+  <h1>Ravina Upagade</h1>
+  <p class="hero-role">Power BI Developer&nbsp;&nbsp;·&nbsp;&nbsp;Business Intelligence Analyst</p>
+  <p class="hero-desc">Nearly 4 years turning financial data into dashboards that drive decisions — from equity derivatives to risk management and client analytics.</p>
+  <div class="hero-links">
+    <a href="#about" class="hero-link">About</a>
+    <a href="#projects" class="hero-link">Projects</a>
+    <a href="#experience" class="hero-link">Experience</a>
+    <a href="#skills" class="hero-link">Skills</a>
+    <a href="#education" class="hero-link">Education</a>
+    <a href="#contact" class="hero-link">Contact</a>
+    <a href="https://www.linkedin.com/in/ravina-upagade-kulkarni/" target="_blank" class="hero-link">LinkedIn ↗</a>
+    <a href="https://github.com/ravina-upagade/PowerBI-Analytics-Portfolio" target="_blank" class="hero-link">GitHub ↗</a>
+  </div>
+  <div class="stats-row r d1">
+    <div class="stat-item">
+      <div class="stat-num">4<span style="font-size:24px;font-weight:400">yrs</span></div>
+      <div class="stat-cap">Experience</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">12</div>
+      <div class="stat-cap">Dashboards deployed</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">500<span style="font-size:24px;font-weight:400">+</span></div>
+      <div class="stat-cap">Active users</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">35<span style="font-size:24px;font-weight:400">%</span></div>
+      <div class="stat-cap">Reporting time reduced</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" style="font-size:28px">8h→45m</div>
+      <div class="stat-cap">Process automated</div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div id="about">
+  <div class="section">
+    <p class="eyebrow r">About</p>
+    <h2 class="section-headline r">Building BI people trust.</h2>
+    <div class="about-cols">
+      <div class="about-body r">
+        <p>I started at Sharekhan building Excel-based analytics for derivatives operations — processing 50,000 daily transactions and reducing settlement failures by 22%.</p>
+        <p>Today at Axis Securities, I design enterprise Power BI solutions for over 200 users, covering the full trade lifecycle from execution through settlement, risk monitoring, and client onboarding.</p>
+        <p>My approach is simple: understand the business problem first, then build the most straightforward dashboard that answers it. Good BI reduces questions. It doesn't multiply them.</p>
+        <p style="margin-top:20px;"><a href="#contact">Get in touch ›</a></p>
+      </div>
+      <div class="about-facts">
+        <div class="fact-card r d1"><div class="fact-num">2M+</div><div class="fact-desc">Daily trading rows processed at sub-2 second load time</div></div>
+        <div class="fact-card r d2"><div class="fact-num">30%</div><div class="fact-desc">Operational risk reduction via automated DAX exposure alerts</div></div>
+        <div class="fact-card r d3"><div class="fact-num">40%</div><div class="fact-desc">Fewer support tickets after self-service BI rollout</div></div>
+        <div class="fact-card r d4"><div class="fact-num">0</div><div class="fact-desc">Regulatory audit failures in 8 months of RLS enforcement</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div id="projects">
+  <div class="section">
+    <p class="eyebrow r">Projects</p>
+    <h2 class="section-headline r">Selected work.</h2>
+    <p class="section-sub r" style="margin-bottom:0">Click any card to read more.</p>
+
+    <div class="projects-grid">
+
+      <!-- HR Analytics — wide -->
+      <div class="proj-card proj-card--wide r" onclick="toggleCard(this)">
+        <div class="proj-visual">
+          <svg viewBox="0 0 1200 420" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="1200" height="420" fill="#001d35"/>
+            <rect x="60"  y="40" width="210" height="90" rx="12" fill="rgba(41,151,255,.12)"/>
+            <text x="165" y="90"  text-anchor="middle" fill="#60a5fa" font-size="34" font-family="-apple-system,sans-serif" font-weight="700">1,470</text>
+            <text x="165" y="115" text-anchor="middle" fill="rgba(255,255,255,.45)" font-size="13" font-family="-apple-system,sans-serif">Total Employees</text>
+            <rect x="300" y="40" width="210" height="90" rx="12" fill="rgba(248,113,113,.1)"/>
+            <text x="405" y="90"  text-anchor="middle" fill="#f87171" font-size="34" font-family="-apple-system,sans-serif" font-weight="700">16.1%</text>
+            <text x="405" y="115" text-anchor="middle" fill="rgba(255,255,255,.45)" font-size="13" font-family="-apple-system,sans-serif">Attrition Rate</text>
+            <rect x="540" y="40" width="210" height="90" rx="12" fill="rgba(52,211,153,.1)"/>
+            <text x="645" y="90"  text-anchor="middle" fill="#34d399" font-size="34" font-family="-apple-system,sans-serif" font-weight="700">237</text>
+            <text x="645" y="115" text-anchor="middle" fill="rgba(255,255,255,.45)" font-size="13" font-family="-apple-system,sans-serif">Employees Left</text>
+            <rect x="780" y="40" width="210" height="90" rx="12" fill="rgba(251,191,36,.1)"/>
+            <text x="885" y="90"  text-anchor="middle" fill="#fbbf24" font-size="34" font-family="-apple-system,sans-serif" font-weight="700">36.9</text>
+            <text x="885" y="115" text-anchor="middle" fill="rgba(255,255,255,.45)" font-size="13" font-family="-apple-system,sans-serif">Avg Age</text>
+            <rect x="60"  y="355" width="55" height="55"  fill="rgba(96,165,250,.5)" rx="4"/>
+            <rect x="130" y="300" width="55" height="110" fill="rgba(96,165,250,.7)" rx="4"/>
+            <rect x="200" y="270" width="55" height="140" fill="#60a5fa" rx="4"/>
+            <rect x="270" y="315" width="55" height="95"  fill="rgba(96,165,250,.65)" rx="4"/>
+            <rect x="340" y="260" width="55" height="150" fill="#60a5fa" rx="4"/>
+            <rect x="410" y="295" width="55" height="115" fill="rgba(96,165,250,.6)" rx="4"/>
+            <polyline points="600,360 670,320 740,335 810,285 880,260 950,275 1020,230 1090,210 1150,190" fill="none" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="600,360 670,320 740,335 810,285 880,260 950,275 1020,230 1090,210 1150,190 1150,420 600,420" fill="rgba(96,165,250,.07)"/>
+          </svg>
+        </div>
+        <div class="proj-body">
+          <p class="proj-eyebrow">Power BI · HR Analytics</p>
+          <h3 class="proj-title">HR People Analytics</h3>
+          <p class="proj-desc">Workforce dashboard — attrition trends, performance distribution, headcount, and salary analysis with full drill-down.</p>
+          <span class="proj-more">Learn more</span>
+        </div>
+        <div class="proj-expanded">
+          <div class="proj-details-grid">
+            <div class="detail-cell"><div class="detail-label">Type</div><div class="detail-val">Portfolio Project</div></div>
+            <div class="detail-cell"><div class="detail-label">Tools</div><div class="detail-val">Power BI, DAX, SQL, Power Query</div></div>
+            <div class="detail-cell"><div class="detail-label">Domain</div><div class="detail-val">HR Analytics</div></div>
+          </div>
+          <ul class="proj-ul">
+            <li>Attrition breakdown by age, gender, department, and education level</li>
+            <li>Performance distribution matrix and headcount trend visualisations</li>
+            <li>DAX measures for attrition rate, retention probability, and salary band analysis</li>
+            <li>Cross-filter and drill-down across every dimension</li>
+          </ul>
+          <div class="proj-chips">
+            <span class="proj-chip">Data-driven retention</span>
+            <span class="proj-chip">Attrition insights</span>
+            <span class="proj-chip">Self-service reporting</span>
+          </div>
+          <p style="margin-bottom:16px"><a href="https://github.com/ravina-upagade/PowerBI-Analytics-Portfolio/tree/main/HR-People-Analytics" target="_blank">View on GitHub ›</a></p>
+          <button class="proj-close" onclick="closeCard(this,event)">Collapse ↑</button>
+        </div>
+      </div>
+
+      <!-- Coffee -->
+      <div class="proj-card r" onclick="toggleCard(this)">
+        <div class="proj-visual">
+          <svg viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="600" height="340" fill="#001a0f"/>
+            <polyline points="30,280 90,248 160,258 230,210 300,224 380,180 460,192 540,155 590,138" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="30,280 90,248 160,258 230,210 300,224 380,180 460,192 540,155 590,138 590,340 30,340" fill="rgba(52,211,153,.06)"/>
+            <circle cx="300" cy="224" r="5" fill="#34d399"/><circle cx="460" cy="192" r="5" fill="#34d399"/>
+            <rect x="30" y="30" width="130" height="70" rx="10" fill="rgba(52,211,153,.12)"/>
+            <text x="95" y="68" text-anchor="middle" fill="#34d399" font-size="26" font-family="-apple-system,sans-serif" font-weight="700">$698K</text>
+            <text x="95" y="88" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="12" font-family="-apple-system,sans-serif">Revenue</text>
+            <rect x="178" y="30" width="110" height="70" rx="10" fill="rgba(52,211,153,.12)"/>
+            <text x="233" y="68" text-anchor="middle" fill="#34d399" font-size="26" font-family="-apple-system,sans-serif" font-weight="700">149K</text>
+            <text x="233" y="88" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="12" font-family="-apple-system,sans-serif">Orders</text>
+          </svg>
+        </div>
+        <div class="proj-body">
+          <p class="proj-eyebrow">Excel · Power Query · Sales</p>
+          <h3 class="proj-title">Kraken Coffee Sales</h3>
+          <p class="proj-desc">Revenue trends, top products, and regional performance for a multi-location coffee chain.</p>
+          <span class="proj-more">Learn more</span>
+        </div>
+        <div class="proj-expanded">
+          <div class="proj-details-grid">
+            <div class="detail-cell"><div class="detail-label">Type</div><div class="detail-val">Portfolio Project</div></div>
+            <div class="detail-cell"><div class="detail-label">Tools</div><div class="detail-val">Excel, Power Query, Pivot Charts</div></div>
+            <div class="detail-cell"><div class="detail-label">Domain</div><div class="detail-val">Retail Sales Analytics</div></div>
+          </div>
+          <ul class="proj-ul">
+            <li>Revenue and order volume with moving average trend lines to surface seasonality</li>
+            <li>Product-level breakdown of best-selling types by region and season</li>
+            <li>Interactive slicers for date range, product category, and store</li>
+          </ul>
+          <div class="proj-chips">
+            <span class="proj-chip">Revenue visibility</span><span class="proj-chip">Product mix</span><span class="proj-chip">Regional view</span>
+          </div>
+          <button class="proj-close" onclick="closeCard(this,event)">Collapse ↑</button>
+        </div>
+      </div>
+
+      <!-- MarketMindz -->
+      <div class="proj-card r d1" onclick="toggleCard(this)">
+        <div class="proj-visual">
+          <svg viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="600" height="340" fill="#130820"/>
+            <path d="M120 30 L480 30 L450 82 L150 82 Z" fill="rgba(167,139,250,.6)"/>
+            <path d="M150 92 L450 92 L425 140 L175 140 Z" fill="rgba(167,139,250,.45)"/>
+            <path d="M175 150 L425 150 L403 194 L197 194 Z" fill="rgba(167,139,250,.3)"/>
+            <path d="M197 204 L403 204 L384 244 L216 244 Z" fill="rgba(167,139,250,.18)"/>
+            <text x="300" y="60"  text-anchor="middle" fill="rgba(255,255,255,.9)" font-size="12" font-family="-apple-system,sans-serif">Awareness — 100%</text>
+            <text x="300" y="120" text-anchor="middle" fill="rgba(255,255,255,.9)" font-size="12" font-family="-apple-system,sans-serif">Interest — 68%</text>
+            <text x="300" y="175" text-anchor="middle" fill="rgba(255,255,255,.85)" font-size="11" font-family="-apple-system,sans-serif">Consideration — 42%</text>
+            <text x="300" y="228" text-anchor="middle" fill="rgba(255,255,255,.8)" font-size="11" font-family="-apple-system,sans-serif">Purchase — 22%</text>
+          </svg>
+        </div>
+        <div class="proj-body">
+          <p class="proj-eyebrow">Power BI · Market Research</p>
+          <h3 class="proj-title">MarketMindz Research</h3>
+          <p class="proj-desc">Consumer funnel, brand awareness metrics, and sentiment analysis for strategic market research.</p>
+          <span class="proj-more">Learn more</span>
+        </div>
+        <div class="proj-expanded">
+          <div class="proj-details-grid">
+            <div class="detail-cell"><div class="detail-label">Type</div><div class="detail-val">Portfolio Project</div></div>
+            <div class="detail-cell"><div class="detail-label">Tools</div><div class="detail-val">Power BI, DAX, Power Query</div></div>
+            <div class="detail-cell"><div class="detail-label">Domain</div><div class="detail-val">Market Research</div></div>
+          </div>
+          <ul class="proj-ul">
+            <li>Consumer journey funnel from awareness to purchase with drop-off analysis</li>
+            <li>Brand awareness and sentiment segmented by demographics and geography</li>
+            <li>Survey heatmaps and cross-tabulation tables for reporting</li>
+          </ul>
+          <div class="proj-chips">
+            <span class="proj-chip">Consumer insights</span><span class="proj-chip">Funnel clarity</span><span class="proj-chip">Strategic reports</span>
+          </div>
+          <button class="proj-close" onclick="closeCard(this,event)">Collapse ↑</button>
+        </div>
+      </div>
+
+      <!-- Maven Market -->
+      <div class="proj-card r" onclick="toggleCard(this)">
+        <div class="proj-visual">
+          <svg viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="600" height="340" fill="#001508"/>
+            <rect x="30"  y="30" width="145" height="80" rx="10" fill="rgba(52,211,153,.12)"/>
+            <text x="102" y="72" text-anchor="middle" fill="#34d399" font-size="26" font-family="-apple-system,sans-serif" font-weight="700">$1.76M</text>
+            <text x="102" y="96" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="12" font-family="-apple-system,sans-serif">Revenue</text>
+            <rect x="190" y="30" width="120" height="80" rx="10" fill="rgba(52,211,153,.12)"/>
+            <text x="250" y="72" text-anchor="middle" fill="#34d399" font-size="26" font-family="-apple-system,sans-serif" font-weight="700">59%</text>
+            <text x="250" y="96" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="12" font-family="-apple-system,sans-serif">Margin</text>
+            <rect x="325" y="30" width="120" height="80" rx="10" fill="rgba(52,211,153,.12)"/>
+            <text x="385" y="72" text-anchor="middle" fill="#34d399" font-size="26" font-family="-apple-system,sans-serif" font-weight="700">1,560</text>
+            <text x="385" y="96" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="12" font-family="-apple-system,sans-serif">Customers</text>
+            <rect x="30"  y="268" width="50" height="52" rx="4" fill="rgba(52,211,153,.65)"/>
+            <rect x="92"  y="240" width="50" height="80" rx="4" fill="rgba(52,211,153,.8)"/>
+            <rect x="154" y="215" width="50" height="105" rx="4" fill="#34d399"/>
+            <rect x="216" y="248" width="50" height="72" rx="4" fill="rgba(52,211,153,.7)"/>
+            <rect x="278" y="202" width="50" height="118" rx="4" fill="#34d399"/>
+            <rect x="340" y="228" width="50" height="92" rx="4" fill="rgba(52,211,153,.75)"/>
+            <rect x="402" y="195" width="50" height="125" rx="4" fill="#34d399"/>
+          </svg>
+        </div>
+        <div class="proj-body">
+          <p class="proj-eyebrow">Power BI · Retail Analytics</p>
+          <h3 class="proj-title">Maven Market</h3>
+          <p class="proj-desc">Multi-country grocery chain — revenue, margins, and store-level KPIs with star schema data model.</p>
+          <span class="proj-more">Learn more</span>
+        </div>
+        <div class="proj-expanded">
+          <div class="proj-details-grid">
+            <div class="detail-cell"><div class="detail-label">Type</div><div class="detail-val">Portfolio Project</div></div>
+            <div class="detail-cell"><div class="detail-label">Tools</div><div class="detail-val">Power BI, SQL, DAX</div></div>
+            <div class="detail-cell"><div class="detail-label">Domain</div><div class="detail-val">Retail Analytics</div></div>
+          </div>
+          <ul class="proj-ul">
+            <li>Multi-store performance tracking — revenue, transactions, margins, returns across countries</li>
+            <li>Customer segmentation by demographics and purchase behaviour</li>
+            <li>Star schema linking sales, customers, products, stores, and calendar</li>
+          </ul>
+          <div class="proj-chips">
+            <span class="proj-chip">Store KPIs</span><span class="proj-chip">Profit drivers</span><span class="proj-chip">Customer segments</span>
+          </div>
+          <button class="proj-close" onclick="closeCard(this,event)">Collapse ↑</button>
+        </div>
+      </div>
+
+      <!-- TCS Stock -->
+      <div class="proj-card r d1" onclick="toggleCard(this)">
+        <div class="proj-visual">
+          <svg viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="600" height="340" fill="#0a1520"/>
+            <line x1="60"  y1="80"  x2="60"  y2="220" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+            <rect x="44"  y="130" width="32" height="90"  fill="rgba(248,113,113,.75)" rx="3"/>
+            <line x1="115" y1="60"  x2="115" y2="215" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+            <rect x="99"  y="90"  width="32" height="90"  fill="rgba(52,211,153,.8)" rx="3"/>
+            <line x1="170" y1="45"  x2="170" y2="205" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+            <rect x="154" y="72"  width="32" height="85"  fill="rgba(52,211,153,.8)" rx="3"/>
+            <line x1="225" y1="65"  x2="225" y2="215" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+            <rect x="209" y="105" width="32" height="60"  fill="rgba(248,113,113,.7)" rx="3"/>
+            <line x1="280" y1="38"  x2="280" y2="198" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+            <rect x="264" y="60"  width="32" height="76"  fill="rgba(52,211,153,.8)" rx="3"/>
+            <line x1="335" y1="30"  x2="335" y2="185" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+            <rect x="319" y="52"  width="32" height="68"  fill="rgba(52,211,153,.8)" rx="3"/>
+            <line x1="390" y1="48"  x2="390" y2="200" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+            <rect x="374" y="82"  width="32" height="70"  fill="rgba(248,113,113,.7)" rx="3"/>
+            <polyline points="450,280 490,255 530,262 560,235 590,215" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round"/>
+            <polyline points="450,280 490,255 530,262 560,235 590,215 590,340 450,340" fill="rgba(96,165,250,.06)"/>
+          </svg>
+        </div>
+        <div class="proj-body">
+          <p class="proj-eyebrow">Python · Pandas · Finance</p>
+          <h3 class="proj-title">TCS Stock Price Analysis</h3>
+          <p class="proj-desc">Historical stock analysis — candlestick charts, moving averages, Bollinger Bands, RSI, and return distributions.</p>
+          <span class="proj-more">Learn more</span>
+        </div>
+        <div class="proj-expanded">
+          <div class="proj-details-grid">
+            <div class="detail-cell"><div class="detail-label">Type</div><div class="detail-val">Portfolio Project</div></div>
+            <div class="detail-cell"><div class="detail-label">Tools</div><div class="detail-val">Python, Pandas, Matplotlib, Seaborn</div></div>
+            <div class="detail-cell"><div class="detail-label">Domain</div><div class="detail-val">Financial Markets</div></div>
+          </div>
+          <ul class="proj-ul">
+            <li>OHLCV data processing and candlestick charting with Pandas and Matplotlib</li>
+            <li>Technical indicators — SMA, EMA, Bollinger Bands, RSI — computed from scratch</li>
+            <li>Rolling volatility, return distributions, and year-wise performance breakdowns</li>
+          </ul>
+          <div class="proj-chips">
+            <span class="proj-chip">Price trends</span><span class="proj-chip">Volatility</span><span class="proj-chip">Technical analysis</span>
+          </div>
+          <button class="proj-close" onclick="closeCard(this,event)">Collapse ↑</button>
+        </div>
+      </div>
+
+      <!-- Securities Hub — wide -->
+      <div class="proj-card proj-card--wide r" onclick="toggleCard(this)">
+        <div class="proj-visual">
+          <svg viewBox="0 0 1200 420" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="1200" height="420" fill="#00101f"/>
+            <rect x="50"  y="40" width="200" height="90" rx="12" fill="rgba(41,151,255,.12)"/>
+            <text x="150" y="90"  text-anchor="middle" fill="#60a5fa" font-size="30" font-family="-apple-system,sans-serif" font-weight="700">12</text>
+            <text x="150" y="115" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="13" font-family="-apple-system,sans-serif">Dashboards</text>
+            <rect x="275" y="40" width="200" height="90" rx="12" fill="rgba(41,151,255,.12)"/>
+            <text x="375" y="90"  text-anchor="middle" fill="#60a5fa" font-size="30" font-family="-apple-system,sans-serif" font-weight="700">200+</text>
+            <text x="375" y="115" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="13" font-family="-apple-system,sans-serif">Active Users</text>
+            <rect x="500" y="40" width="200" height="90" rx="12" fill="rgba(52,211,153,.1)"/>
+            <text x="600" y="90"  text-anchor="middle" fill="#34d399" font-size="30" font-family="-apple-system,sans-serif" font-weight="700">35%</text>
+            <text x="600" y="115" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="13" font-family="-apple-system,sans-serif">Faster Resolution</text>
+            <rect x="725" y="40" width="200" height="90" rx="12" fill="rgba(248,113,113,.1)"/>
+            <text x="825" y="90"  text-anchor="middle" fill="#f87171" font-size="30" font-family="-apple-system,sans-serif" font-weight="700">30%</text>
+            <text x="825" y="115" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="13" font-family="-apple-system,sans-serif">Risk Reduction</text>
+            <rect x="950" y="40" width="200" height="90" rx="12" fill="rgba(251,191,36,.1)"/>
+            <text x="1050" y="90"  text-anchor="middle" fill="#fbbf24" font-size="30" font-family="-apple-system,sans-serif" font-weight="700">99.8%</text>
+            <text x="1050" y="115" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="13" font-family="-apple-system,sans-serif">Data Accuracy</text>
+            <rect x="50"  y="320" width="55" height="80"  fill="rgba(41,151,255,.6)" rx="4"/>
+            <rect x="50"  y="280" width="55" height="40"  fill="rgba(41,151,255,.3)" rx="4"/>
+            <rect x="125" y="295" width="55" height="105" fill="rgba(41,151,255,.6)" rx="4"/>
+            <rect x="125" y="255" width="55" height="40"  fill="rgba(41,151,255,.3)" rx="4"/>
+            <rect x="200" y="305" width="55" height="95"  fill="rgba(41,151,255,.6)" rx="4"/>
+            <rect x="200" y="270" width="55" height="35"  fill="rgba(41,151,255,.3)" rx="4"/>
+            <rect x="275" y="280" width="55" height="120" fill="rgba(41,151,255,.65)" rx="4"/>
+            <rect x="275" y="240" width="55" height="40"  fill="rgba(41,151,255,.35)" rx="4"/>
+            <circle cx="980" cy="300" r="80" fill="none" stroke="rgba(41,151,255,.12)" stroke-width="18"/>
+            <circle cx="980" cy="300" r="80" fill="none" stroke="#60a5fa" stroke-width="18" stroke-dasharray="302 200" stroke-dashoffset="75" stroke-linecap="round"/>
+            <text x="980" y="306" text-anchor="middle" fill="white" font-size="22" font-family="-apple-system,sans-serif" font-weight="700">0 gaps</text>
+            <text x="980" y="330" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="12" font-family="-apple-system,sans-serif">Audit failures</text>
+          </svg>
+        </div>
+        <div class="proj-body">
+          <p class="proj-eyebrow">Power BI · Enterprise · Axis Securities</p>
+          <h3 class="proj-title">Securities Operations Analytics Hub</h3>
+          <p class="proj-desc">12 dashboards tracking the full equity derivatives trade lifecycle — risk, settlement, and operations for 200+ users.</p>
+          <span class="proj-more">Learn more</span>
+        </div>
+        <div class="proj-expanded">
+          <div class="proj-details-grid">
+            <div class="detail-cell"><div class="detail-label">Type</div><div class="detail-val">Enterprise — Axis Securities</div></div>
+            <div class="detail-cell"><div class="detail-label">Tools</div><div class="detail-val">Power BI, DAX, SQL, DirectQuery, RLS</div></div>
+            <div class="detail-cell"><div class="detail-label">Scale</div><div class="detail-val">200+ users · 2M+ daily rows · 15 departments</div></div>
+          </div>
+          <ul class="proj-ul">
+            <li>12 dashboards covering the complete equity derivatives trade lifecycle</li>
+            <li>DAX time-intelligence measures automatically flag trades exceeding exposure limits</li>
+            <li>Star schema at 2M+ daily rows with sub-2s load time</li>
+            <li>Row-level security across 15 departments — zero regulatory audit failures in 8 months</li>
+            <li>Power Query automation reduced 8-hour reporting to 45 minutes</li>
+          </ul>
+          <div class="proj-chips">
+            <span class="proj-chip">35% faster resolution</span>
+            <span class="proj-chip">30% risk reduction</span>
+            <span class="proj-chip">40% fewer tickets</span>
+            <span class="proj-chip">8h → 45m</span>
+          </div>
+          <button class="proj-close" onclick="closeCard(this,event)">Collapse ↑</button>
+        </div>
+      </div>
+
+      <!-- KYC — wide -->
+      <div class="proj-card proj-card--wide r" onclick="toggleCard(this)">
+        <div class="proj-visual">
+          <svg viewBox="0 0 1200 340" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="1200" height="340" fill="#1a0e00"/>
+            <rect x="50"  y="30" width="180" height="80" rx="10" fill="rgba(251,191,36,.12)"/>
+            <text x="140" y="72" text-anchor="middle" fill="#fbbf24" font-size="28" font-family="-apple-system,sans-serif" font-weight="700">500+</text>
+            <text x="140" y="95" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="12" font-family="-apple-system,sans-serif">Applications / Month</text>
+            <rect x="250" y="30" width="180" height="80" rx="10" fill="rgba(52,211,153,.1)"/>
+            <text x="340" y="72" text-anchor="middle" fill="#34d399" font-size="28" font-family="-apple-system,sans-serif" font-weight="700">28%</text>
+            <text x="340" y="95" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="12" font-family="-apple-system,sans-serif">Faster Processing</text>
+            <rect x="450" y="30" width="180" height="80" rx="10" fill="rgba(96,165,250,.1)"/>
+            <text x="540" y="72" text-anchor="middle" fill="#60a5fa" font-size="28" font-family="-apple-system,sans-serif" font-weight="700">100%</text>
+            <text x="540" y="95" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="12" font-family="-apple-system,sans-serif">Tracking Accuracy</text>
+            <rect x="650" y="30" width="180" height="80" rx="10" fill="rgba(248,113,113,.1)"/>
+            <text x="740" y="72" text-anchor="middle" fill="#f87171" font-size="28" font-family="-apple-system,sans-serif" font-weight="700">35%</text>
+            <text x="740" y="95" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="12" font-family="-apple-system,sans-serif">Fewer Delays</text>
+            <rect x="50"  y="165" width="145" height="55" rx="10" fill="rgba(251,191,36,.12)" stroke="rgba(251,191,36,.3)" stroke-width="1"/>
+            <text x="122" y="196" text-anchor="middle" fill="#fbbf24" font-size="14" font-family="-apple-system,sans-serif" font-weight="600">Submitted</text>
+            <text x="200" y="196" fill="rgba(255,255,255,.3)" font-size="20">›</text>
+            <rect x="210" y="165" width="145" height="55" rx="10" fill="rgba(251,191,36,.12)" stroke="rgba(251,191,36,.3)" stroke-width="1"/>
+            <text x="282" y="196" text-anchor="middle" fill="#fbbf24" font-size="14" font-family="-apple-system,sans-serif" font-weight="600">In Review</text>
+            <text x="360" y="196" fill="rgba(255,255,255,.3)" font-size="20">›</text>
+            <rect x="370" y="165" width="145" height="55" rx="10" fill="rgba(52,211,153,.12)" stroke="rgba(52,211,153,.3)" stroke-width="1"/>
+            <text x="442" y="196" text-anchor="middle" fill="#34d399" font-size="14" font-family="-apple-system,sans-serif" font-weight="600">Approved</text>
+            <text x="520" y="196" fill="rgba(255,255,255,.3)" font-size="20">›</text>
+            <rect x="530" y="165" width="145" height="55" rx="10" fill="rgba(248,113,113,.12)" stroke="rgba(248,113,113,.3)" stroke-width="1"/>
+            <text x="602" y="196" text-anchor="middle" fill="#f87171" font-size="14" font-family="-apple-system,sans-serif" font-weight="600">Rejected</text>
+            <text x="50" y="270" fill="rgba(251,191,36,.7)" font-size="11" font-family="-apple-system,sans-serif" font-weight="600">SLA COMPLIANCE</text>
+            <rect x="50"  y="282" width="300" height="10" rx="5" fill="rgba(255,255,255,.06)"/>
+            <rect x="50"  y="282" width="220" height="10" rx="5" fill="rgba(52,211,153,.5)"/>
+            <text x="360" y="292" fill="rgba(255,255,255,.35)" font-size="11" font-family="-apple-system,sans-serif">On Track 73%</text>
+            <rect x="50"  y="304" width="300" height="10" rx="5" fill="rgba(255,255,255,.06)"/>
+            <rect x="50"  y="304" width="95"  height="10" rx="5" fill="rgba(251,191,36,.6)"/>
+            <text x="360" y="314" fill="rgba(255,255,255,.35)" font-size="11" font-family="-apple-system,sans-serif">At Risk 31%</text>
+          </svg>
+        </div>
+        <div class="proj-body">
+          <p class="proj-eyebrow">Power BI · KYC · Compliance · Axis Securities</p>
+          <h3 class="proj-title">Client Onboarding &amp; KYC Analytics</h3>
+          <p class="proj-desc">500+ KYC applications monthly — multi-stage tracking, SLA breach alerts, and customer data protection via RLS.</p>
+          <span class="proj-more">Learn more</span>
+        </div>
+        <div class="proj-expanded">
+          <div class="proj-details-grid">
+            <div class="detail-cell"><div class="detail-label">Type</div><div class="detail-val">Enterprise — Axis Securities</div></div>
+            <div class="detail-cell"><div class="detail-label">Tools</div><div class="detail-val">SQL, DirectQuery, DAX, Time Intelligence, RLS</div></div>
+            <div class="detail-cell"><div class="detail-label">Volume</div><div class="detail-val">500+ applications / month</div></div>
+          </div>
+          <ul class="proj-ul">
+            <li>Dynamic DAX status classification with CALCULATE and FILTER against complex multi-stage rules</li>
+            <li>SLA monitoring with colour-coded breach severity alerts</li>
+            <li>Drill-through pages for full application history and RLS for data protection</li>
+          </ul>
+          <div class="proj-chips">
+            <span class="proj-chip">28% faster processing</span>
+            <span class="proj-chip">100% accuracy</span>
+            <span class="proj-chip">35% fewer delays</span>
+          </div>
+          <button class="proj-close" onclick="closeCard(this,event)">Collapse ↑</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div id="experience" class="section-alt">
+  <div class="section">
+    <p class="eyebrow r">Experience</p>
+    <h2 class="section-headline r">Where I've worked.</h2>
+    <div class="exp-list">
+      <div class="exp-row r">
+        <div>
+          <div class="exp-period">May 2024 – Present</div>
+          <div class="exp-company-name">Axis Securities Limited</div>
+          <div class="exp-location">Pune, Maharashtra</div>
+        </div>
+        <div>
+          <div class="exp-role-title">Power BI Developer</div>
+          <ul class="exp-bullets">
+            <li>Built 12 dashboards for equity derivatives — served 200+ users, cutting settlement resolution time by 35%</li>
+            <li>DAX risk measures with time intelligence to auto-flag exposure breaches, reducing operational risk by 30%</li>
+            <li>Replaced 8-hour manual Excel reporting with Power Query pipelines completing in 45 minutes</li>
+            <li>Row-level security across 15 departments — zero audit failures in 8 months</li>
+            <li>20+ stakeholder sessions enabled self-service BI, reducing support tickets by 40%</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">Power BI</span><span class="exp-tag">DAX</span><span class="exp-tag">SQL</span>
+            <span class="exp-tag">Power Query</span><span class="exp-tag">DirectQuery</span>
+            <span class="exp-tag">Star Schema</span><span class="exp-tag">RLS</span>
+          </div>
+        </div>
+      </div>
+      <div class="exp-row r d1">
+        <div>
+          <div class="exp-period">Aug 2021 – Apr 2024</div>
+          <div class="exp-company-name">Sharekhan Ltd</div>
+          <div class="exp-location">Nagpur, Maharashtra</div>
+        </div>
+        <div>
+          <div class="exp-role-title">Data Visualization Analyst</div>
+          <ul class="exp-bullets">
+            <li>8 Excel dashboards using Power Query and Power Pivot — 50,000 daily transactions, settlement failures down 22%</li>
+            <li>INDEX-MATCH and array formula frameworks identified loss patterns, cutting operational losses by 25%</li>
+            <li>Standardised templates adopted by 3 regional offices, improving data quality by 15%</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">Excel Advanced</span><span class="exp-tag">Power Pivot</span>
+            <span class="exp-tag">Power Query</span><span class="exp-tag">Pivot Charts</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div id="skills">
+  <div class="section">
+    <p class="eyebrow r">Skills</p>
+    <h2 class="section-headline r">Technical stack.</h2>
+    <div class="skills-grid">
+      <div class="skill-card r"><span class="skill-icon">📊</span><div class="skill-name">Business Intelligence</div><div class="skill-items"><span class="skill-item">Power BI Desktop</span><span class="skill-item">Power BI Service</span><span class="skill-item">DAX</span><span class="skill-item">Power Query / M</span><span class="skill-item">Star Schema</span><span class="skill-item">Snowflake Schema</span><span class="skill-item">RLS</span><span class="skill-item">Paginated Reports</span><span class="skill-item">Dataflows</span><span class="skill-item">Microsoft Fabric</span></div></div>
+      <div class="skill-card r d1"><span class="skill-icon">🗄️</span><div class="skill-name">Database &amp; SQL</div><div class="skill-items"><span class="skill-item">SQL Server</span><span class="skill-item">Azure SQL</span><span class="skill-item">T-SQL</span><span class="skill-item">Complex Joins</span><span class="skill-item">Subqueries</span><span class="skill-item">Views</span><span class="skill-item">Query Optimisation</span><span class="skill-item">Azure Data Factory</span><span class="skill-item">SSIS</span></div></div>
+      <div class="skill-card r d2"><span class="skill-icon">🐍</span><div class="skill-name">Programming</div><div class="skill-items"><span class="skill-item">Python</span><span class="skill-item">Pandas</span><span class="skill-item">NumPy</span><span class="skill-item">Matplotlib</span><span class="skill-item">Seaborn</span><span class="skill-item">Statistical Analysis</span><span class="skill-item">Excel Advanced</span><span class="skill-item">Power Pivot</span></div></div>
+      <div class="skill-card r"><span class="skill-icon">🏦</span><div class="skill-name">Domain Knowledge</div><div class="skill-items"><span class="skill-item">Financial Services</span><span class="skill-item">Trade Lifecycle</span><span class="skill-item">Risk Management</span><span class="skill-item">Regulatory Compliance</span><span class="skill-item">Settlement Ops</span><span class="skill-item">KYC</span><span class="skill-item">Client Onboarding</span></div></div>
+      <div class="skill-card r d1"><span class="skill-icon">🤝</span><div class="skill-name">Professional</div><div class="skill-items"><span class="skill-item">Data Storytelling</span><span class="skill-item">Stakeholder Management</span><span class="skill-item">Requirements Gathering</span><span class="skill-item">Documentation</span><span class="skill-item">Cross-team Collaboration</span><span class="skill-item">Microsoft Copilot</span></div></div>
+      <div class="skill-card r d2"><span class="skill-icon">☁️</span><div class="skill-name">Cloud &amp; Tools</div><div class="skill-items"><span class="skill-item">Azure SQL Database</span><span class="skill-item">Azure Data Factory</span><span class="skill-item">SharePoint</span><span class="skill-item">OneDrive</span><span class="skill-item">Teams</span><span class="skill-item">Deployment Pipelines</span></div></div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div id="education" class="section-alt">
+  <div class="section">
+    <p class="eyebrow r">Education</p>
+    <h2 class="section-headline r">Academic background.</h2>
+    <div class="edu-grid">
+      <div class="edu-card r"><div class="edu-year">2022</div><div class="edu-degree">PGDBM (MBA) in Finance</div><div class="edu-school">NMIMS — Narsee Monjee Institute of Management Studies, Mumbai</div></div>
+      <div class="edu-card r d1"><div class="edu-year">2020</div><div class="edu-degree">M.Com in Commerce</div><div class="edu-school">RTMNU — Rashtrasant Tukadoji Maharaj Nagpur University</div></div>
+      <div class="edu-card r d2"><div class="edu-year">2018</div><div class="edu-degree">B.Com in Commerce</div><div class="edu-school">RTMNU — Rashtrasant Tukadoji Maharaj Nagpur University</div></div>
+      <div class="edu-card r d3" style="background:var(--bg);"><div class="edu-year">Certifications</div><div class="edu-degree">Microsoft Power BI for Business Intelligence</div><div class="edu-school">Udemy &nbsp;·&nbsp; The Complete SQL Bootcamp — Udemy</div></div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div id="contact" class="contact-section">
+  <div class="contact-wrap">
+    <h2 class="contact-h r">Let's work together.</h2>
+    <p class="contact-sub r">Open to Power BI Developer and Business Intelligence roles.</p>
+    <div class="contact-grid r">
+      <a href="mailto:ravina.upagade@gmail.com" class="contact-card"><div class="contact-label">Email</div><div class="contact-val">ravina.upagade@gmail.com</div></a>
+      <a href="tel:+919096417260" class="contact-card"><div class="contact-label">Phone</div><div class="contact-val">+91 9096417260</div></a>
+      <a href="https://www.linkedin.com/in/ravina-upagade-kulkarni/" target="_blank" class="contact-card"><div class="contact-label">LinkedIn</div><div class="contact-val">Connect ›</div></a>
+      <a href="https://github.com/ravina-upagade/PowerBI-Analytics-Portfolio" target="_blank" class="contact-card"><div class="contact-label">GitHub</div><div class="contact-val">Portfolio ›</div></a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-left">Copyright © 2025 Ravina Upagade. All rights reserved.</span>
+    <div class="footer-right">
+      <a href="https://www.linkedin.com/in/ravina-upagade-kulkarni/" target="_blank">LinkedIn</a>
+      <a href="https://github.com/ravina-upagade" target="_blank">GitHub</a>
+      <a href="mailto:ravina.upagade@gmail.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const btn  = document.getElementById('themeBtn');
+const html = document.documentElement;
+
+function applyTheme(t) {
+  html.setAttribute('data-theme', t);
+  btn.textContent = t === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('theme', t);
+}
+btn.addEventListener('click', () =>
+  applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark')
+);
+const saved = localStorage.getItem('theme') ||
+  (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
+applyTheme(saved);
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('v'); io.unobserve(e.target); } });
+}, { threshold: 0.07, rootMargin: '0px 0px -32px 0px' });
+document.querySelectorAll('.r').forEach(el => io.observe(el));
+
+function toggleCard(card) {
+  if (card.classList.contains('expanded')) return;
+  document.querySelectorAll('.proj-card.expanded').forEach(c => c.classList.remove('expanded'));
+  card.classList.add('expanded');
+  requestAnimationFrame(() => card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }));
+}
+function closeCard(btn, e) {
+  e.stopPropagation();
+  btn.closest('.proj-card').classList.remove('expanded');
+}
+</script>
+</body>
+</html>
