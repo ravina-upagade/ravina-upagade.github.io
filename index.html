@@ -790,7 +790,7 @@ footer { background: var(--bg-alt); border-top: 1px solid var(--border); padding
     <h2 class="contact-h r">Let's work together.</h2>
     <p class="contact-sub r">Open to Power BI Developer and Business Intelligence roles.</p>
     <div class="contact-grid r">
-      <a href="/cdn-cgi/l/email-protection#7e0c1f0817101f500b0e1f191f1a1b3e19131f1712501d1113" class="contact-card"><div class="contact-label">Email</div><div class="contact-val"><span class="__cf_email__" data-cfemail="9deffcebf4f3fcb3e8edfcfafcf9f8ddfaf0fcf4f1b3fef2f0">[email&#160;protected]</span></div></a>
+      <a href="mailto:ravina.upagade@gmail.com" class="contact-card"><div class="contact-label">Email</div><div class="contact-val"><span class="__cf_email__" data-cfemail="9deffcebf4f3fcb3e8edfcfafcf9f8ddfaf0fcf4f1b3fef2f0">[email&#160;protected]</span></div></a>
       <a href="tel:+919096417260" class="contact-card"><div class="contact-label">Phone</div><div class="contact-val">+91 9096417260</div></a>
       <a href="https://www.linkedin.com/in/ravina-upagade-kulkarni/" target="_blank" class="contact-card"><div class="contact-label">LinkedIn</div><div class="contact-val">Connect ›</div></a>
       <a href="https://github.com/ravina-upagade/PowerBI-Analytics-Portfolio" target="_blank" class="contact-card"><div class="contact-label">GitHub</div><div class="contact-val">Portfolio ›</div></a>
@@ -804,12 +804,13 @@ footer { background: var(--bg-alt); border-top: 1px solid var(--border); padding
     <div class="footer-right">
       <a href="https://www.linkedin.com/in/ravina-upagade-kulkarni/" target="_blank">LinkedIn</a>
       <a href="https://github.com/ravina-upagade" target="_blank">GitHub</a>
-      <a href="/cdn-cgi/l/email-protection#9ae8fbecf3f4fbb4efeafbfdfbfeffdafdf7fbf3f6b4f9f5f7">Email</a>
+      <a href="mailto:ravina.upagade@gmail.com">Email</a>
     </div>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+
+<script>
 const btn  = document.getElementById('themeBtn');
 const html = document.documentElement;
 
@@ -832,4 +833,14 @@ document.querySelectorAll('.r').forEach(el => io.observe(el));
 
 function toggleCard(card) {
   if (card.classList.contains('expanded')) return;
-  document.querySelectorAll('.proj-card.expanded').forEach(c => c
+  document.querySelectorAll('.proj-card.expanded').forEach(c => c.classList.remove('expanded'));
+  card.classList.add('expanded');
+  requestAnimationFrame(() => card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }));
+}
+function closeCard(btn, e) {
+  e.stopPropagation();
+  btn.closest('.proj-card').classList.remove('expanded');
+}
+</script>
+</body>
+</html>
